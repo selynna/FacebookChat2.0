@@ -72,7 +72,7 @@ class MegBot:
                 #navigate back to page
                 self.browser.visit("https://mbasic.facebook.com/messages/");
                 #print self.browser.current_url;
-                newconvo = self.browser.find_link_by_partial_text(receiver).first;
+                newconvo = self.browser.find_link_by_partial_text(receiver.title()).first;
                 newconvo.click();
                 #go through all names
                 #names = self.browser.find_by_css('.bp');
@@ -99,7 +99,7 @@ class MegBot:
                         l = filter(lambda x: x in string.printable, line.text.strip());
                         if l and l != "." and not ("Sent from" in l) and not ("Seen by" in l):
                                 messages.insert(0, l);
-                else:
-                        print "skipped " + l;
+                #else:
+                        #print "skipped " + l;
 
                 return messages;
