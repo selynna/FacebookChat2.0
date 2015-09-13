@@ -95,6 +95,7 @@ class MegBot:
                 #unnecessary right now
                 link = mHTML.pop(0).find_by_css("a")["href"];
                 lines = mHTML.find_by_css("span");
+                #lines = mHTML.find_by_tag('span');
                 for line in lines:
                         l = filter(lambda x: x in string.printable, line.text.strip());
                         if l and l != "." and not ("Sent from" in l) and not ("Seen by" in l):
