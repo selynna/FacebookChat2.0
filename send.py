@@ -19,10 +19,10 @@ from urllib2 import URLError
 _base_url = "https://mbasic.facebook.com"
 _base_msg_url = _base_url + "/messages/read/?tid=id."
 _msg_url_mid = "&start=";
-_intro_message = "Hey y'all! I'm megbot. Here to help with some chat automation. My use cases are endless. If you're interested in what I'm here for, ask who invited me into this chat what I can do!";
+_intro_message = "Hey y'all! I'm megbotmentions. Here to help with some chat automation. My use cases are endless. If you're interested in what I'm here for, ask who invited me into this chat what I can do!";
 
-class MegBot:
-        """MegBot is an interface to Facebook Messages. You can use it by logging into your account, and giving it a group message you are a member of. You can navigate to different pages of the message, read the page, and write to the group chat. Please make sure the other members are aware MegBot is joining y'all in your conversation."""
+class MegBotMentions:
+        """MegBotMentions is an interface to Facebook Messages. You can use it by logging into your account, and giving it a group message you are a member of. You can navigate to different pages of the message, read the page, and write to the group chat. Please make sure the other members are aware MegBotMentions is joining y'all in your conversation."""
         def __init__(self, un, pw):
                 self.username = un;
                 self.password = pw;
@@ -74,6 +74,7 @@ class MegBot:
                 #print self.browser.current_url;
                 newconvo = self.browser.find_link_by_partial_text(receiver.title()).first;
                 newconvo.click();
+
                 #go through all names
                 #names = self.browser.find_by_css('.bp');
                 #for name in names:

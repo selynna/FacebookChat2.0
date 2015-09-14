@@ -15,7 +15,7 @@ from selenium.common.exceptions import TimeoutException
 import requests
 from splinter import Browser
 from urllib2 import URLError
-from send import MegBot
+from send import MegBotMentions
 
 maxMessages = 25;
 # attempt to load stopwords
@@ -25,15 +25,15 @@ try:
 except:
         # download stopwords
     import nltk
-    print 'select the package "stopwords" from the GUI to download stopwords for megbot'
+    print 'select the package "stopwords" from the GUI to download stopwords for megbotmentions'
     nltk.download()
     stop = stopwords.words('english')
 
 regex = re.compile('[%s]' % re.escape(string.punctuation))
 _intro = "Top words: ";
-_megbot_call = "@megbot";
+_megbotmentions_call = "@megbotmentions";
 _at_key = "@";
-pattern = re.compile("\\b("+_intro+"|"+_megbot_call+")\\W", re.I)
+pattern = re.compile("\\b("+_intro+"|"+_megbotmentions_call+")\\W", re.I)
 
 try:
     	username = sys.argv[1]
@@ -46,10 +46,10 @@ try:
                 myset = set(stop);
                 stop = list(myset);
         regex = re.compile('[%s]' % re.escape(string.punctuation))
-        mb = MegBot(username,password);
+        mb = MegBotMentions(username,password);
 
 except IndexError:
-    	print "Usage: python megbotex.py <facebook email> <facebook password> <message ID>"
+    	print "Usage: python test.py <facebook email> <facebook password> <message ID>"
     	sys.exit()
 
 print stop
@@ -122,19 +122,19 @@ while True:
         print newMess;
         print currCheck;
 
-        #if the max amount of messages or a @megbot call have come in, summarize the past maxMessages amount of chat and return the top 5 words.
-        if (newMess) > maxMessages or any( _megbot_call in s for s in currCheck[:len(n)]):
+        #if the max amount of messages or a @megbotmentions call have come in, summarize the past maxMessages amount of chat and return the top 5 words.
+        if (newMess) > maxMessages or any( _megbotmentions_call in s for s in currCheck[:len(n)]):
             currCheck = currCheck[:maxMessages];
             ou = highest_words(currCheck);
             #mb.send_message(_intro+ou);
             newMess = 0;
             print "found another message";
 
-        #shout out feature. If anyone says "@"xyz that isn't a megbot call. This shouts out the name following the @ in all capitals
+        #shout out feature. If anyone says "@"xyz that isn't a megbotmentions call. This shouts out the name following the @ in all capitals
         if any(_at_key in s for s in currCheck[:len(n)]):
             foundShoutOut = ' '.join(currCheck[:len(n)]).split();
             for f in foundShoutOut:
-                if f[0] == _at_key and _megbot_call not in f:
+                if f[0] == _at_key and _megbotmentions_call not in f:
                     mb.send_message("" , f[1:]);
 
         time.sleep(3);
